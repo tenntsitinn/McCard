@@ -213,7 +213,11 @@ function renderLibrary(previousPositions=null,direction=0,drawFrame=false){
  const drawing=libraryDraw.phase!=='idle';
  const root=$('library');root.replaceChildren();
  if(!state.presets.length){const empty=el('div',undefined,'library-empty');empty.append(el('h2','卡包还是空的'),el('p','去创建第一张卡，或用最近订单快速生成。'));root.append(empty);return;}
- const filter=el('label',undefined,'library-filter');filter.append(el('span','按 Tag 筛选'));const filterSelect=el('select');for(const tag of ['全部',...new Set(state.presets.map(card=>card.tag).filter(Boolean))]){const option=el('option',tag);option.value=tag;option.selected=tag===state.tagFilter;filterSelect.append(option);}filterSelect.onchange=()=>{state.tagFilter=filterSelect.value;state.libraryIndex=0;renderLibrary();};filterSelect.disabled=drawing;filter.append(filterSelect);root.append(filter);
+ const filter=el('div',undefined,'library-filter');
+ const storeControl=el('div',undefined,'library-store');
+ storeControl.append(el('span',`当前餐厅：${state.restaurant?.storeName||'未选择'}`,'library-store-current'));
+ const changeStore=button('切换餐厅',()=>requestRestaurant(false),'outline library-store-change');changeStore.disabled=drawing;storeControl.append(changeStore);filter.append(storeControl);
+ const tagLabel=el('label',undefined,'library-tag-filter');tagLabel.append(el('span','按 Tag 筛选'));const filterSelect=el('select');for(const tag of ['全部',...new Set(state.presets.map(card=>card.tag).filter(Boolean))]){const option=el('option',tag);option.value=tag;option.selected=tag===state.tagFilter;filterSelect.append(option);}filterSelect.onchange=()=>{state.tagFilter=filterSelect.value;state.libraryIndex=0;renderLibrary();};filterSelect.disabled=drawing;tagLabel.append(filterSelect);filter.append(tagLabel);root.append(filter);
  const cards=filteredLibraryCards();
  if(!cards.length){const empty=el('div',undefined,'library-empty');empty.append(el('h2','没有这个 Tag 的卡牌'),el('p','换一个 Tag，或编辑卡牌标签后再试。'));root.append(empty);return;}
  state.libraryIndex=Math.min(state.libraryIndex,cards.length-1);

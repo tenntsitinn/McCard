@@ -58,7 +58,10 @@ body.is-library #libraryPanel>.fine,body.is-library #libraryMessage{font-size:12
 body.is-library #libraryMessage{margin:3px 0 6px}
 body.is-library #library{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,2fr) minmax(360px,1fr);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"filter detail" "cards detail";gap:8px 28px;padding:12px 28px 30px;border-radius:0}
 body.is-library .library-empty{grid-column:1/-1}
-body.is-library .library-filter{grid-area:filter;display:flex;align-items:center;justify-content:flex-end;gap:9px;min-width:0;color:#6b5000;font-size:12px;font-weight:700}
+body.is-library .library-filter{grid-area:filter;display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;color:#6b5000;font-size:12px;font-weight:700}
+body.is-library .library-store,body.is-library .library-tag-filter{display:flex;align-items:center;gap:8px;min-width:0}
+body.is-library .library-store-current{max-width:min(34vw,300px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.is-library .library-store-change{flex:0 0 auto;padding:6px 10px;border:1px solid #9f7600;background:#fff8df;color:#3b2b00;font-size:11px}
 body.is-library .library-filter select{width:auto;min-width:148px;margin:0;padding:8px 34px 8px 12px;border-color:#9f7600;background:#fff8df;color:#3b2b00;font-size:12px;font-weight:700}
 body.is-library .library-disclaimer{position:absolute;right:14px;bottom:5px;z-index:30;max-width:440px;text-align:right;font-size:10px;line-height:1.4;color:#614b00;pointer-events:none}
 body.is-library .library-disclaimer span{display:block;white-space:nowrap}
@@ -92,6 +95,10 @@ body.is-library footer p{font-size:11px}
   body.is-library>header{min-height:64px}
   body.is-library #libraryPanel h1{font-size:24px}
   body.is-library #library{margin-inline:0;padding:10px 10px 42px;grid-template-rows:auto minmax(0,42fr) minmax(0,58fr);gap:8px}
+  body.is-library .library-filter{align-items:flex-start;flex-wrap:wrap}
+  body.is-library .library-store{flex:1 1 100%;justify-content:space-between}
+  body.is-library .library-store-current{max-width:calc(100vw - 140px)}
+  body.is-library .library-tag-filter{margin-left:auto}
   body.is-library .library-disclaimer{right:10px;bottom:5px;max-width:calc(100% - 20px);font-size:9px}
   body.is-library .pack-detail{padding:12px 14px}
   body.is-library .pack-detail h2{font-size:21px}
