@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="title"><title id="title">麦牌：四张红牌与黄色双拱标志</title>
+<g fill="#db0007" stroke="#fff" stroke-width="3.5" stroke-linejoin="round">
+<rect x="72" y="67" width="88" height="135" rx="10" transform="rotate(-40 116 134.5)"/>
+<rect x="103" y="35" width="88" height="153" rx="10" transform="rotate(-14 147 111.5)"/>
+<rect x="142" y="35" width="88" height="153" rx="10" transform="rotate(14 186 111.5)"/>
+<rect x="174" y="67" width="88" height="135" rx="10" transform="rotate(40 218 134.5)"/>
+</g>
+<path fill="#ffbc0d" d="M105 181 C106 114 117 66 137 66 C151 66 159 94 163 127 C167 94 175 66 189 66 C209 66 220 114 221 181 L201 181 C200 126 195 83 188 83 C180 83 174 126 173 181 L153 181 C152 126 146 83 138 83 C131 83 126 126 125 181 Z"/>
+</svg>

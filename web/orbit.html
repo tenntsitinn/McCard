@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>麦牌 · 把喜欢的组合，存成一张牌</title><link rel="icon" type="image/svg+xml" href="/logo.svg?v=1"><link rel="stylesheet" href="/orbit.css"><script src="/credentials.js" defer></script><script src="/orbit.js" defer></script><link rel="stylesheet" href="/credentials.css"></head>
+<body>
+<canvas id="swirl" aria-hidden="true"></canvas>
+<header><a class="home-brand" href="/" aria-label="McCard 首页"><img class="site-logo" src="/logo-on-red.svg" alt="" width="120" height="90"><span>McCard</span></a></header>
+<main>
+  <div class="heading"><h1>把喜欢的组合，存成一张牌</h1><p>选好这一餐，也为下次留一手。</p></div>
+  <div id="stage" class="stage" role="region" aria-label="自动旋转的双面卡阵，上下拖动可调整俯视角">
+    <div class="shadow"></div><div id="camera" class="camera" aria-hidden="true"><div id="ring" class="ring"></div></div>
+  </div>
+  <div class="start-area">
+    <ol class="journey" aria-label="建卡流程"><li><span>搭配餐品</span><b>1</b></li><li><span>收藏成卡</span><b>2</b></li><li><span>选店用卡</span><b>3</b></li></ol>
+    <button class="start" id="startButton" type="button">快速开始</button>
+  </div>
+  <p id="status" role="status" aria-live="polite"></p>
+</main>
+<dialog id="startDialog" class="start-dialog" aria-labelledby="startDialogTitle">
+  <div class="start-dialog-head">
+    <div><p>快速开始</p><h2 id="startDialogTitle">想怎么创建这张卡？</h2></div>
+    <button class="start-dialog-close" id="startDialogClose" type="button" aria-label="关闭">×</button>
+  </div>
+  <div class="start-choices">
+    <button class="start-choice recent" id="recentStart" type="button"><strong>从最近订单生成</strong><span>读取最近 10 笔订单，生成最多 3 张不重复卡牌</span></button>
+    <a class="start-choice custom" href="/builder?start=custom"><strong>自定义创建</strong><span>从参考菜单挑选餐品，自由组合一张新卡</span></a>
+  </div>
+  <p id="recentStartMessage" class="start-dialog-message" role="status" aria-live="polite"></p>
+</dialog>
+<dialog id="recentResultDialog" class="start-dialog success-dialog" aria-labelledby="recentResultTitle">
+  <div class="start-dialog-head">
+    <div><p id="recentResultEyebrow">创建完成</p><h2 id="recentResultTitle">已从最近订单生成卡牌</h2></div>
+    <button class="start-dialog-close" id="recentResultClose" type="button" aria-label="关闭">×</button>
+  </div>
+  <p class="success-dialog-copy">读取最近 10 笔订单，按时间选取最多 3 种不重复的已完成搭配；已有卡牌也会去重。</p>
+  <p id="recentResultError" class="success-dialog-error" role="alert" hidden></p>
+  <div class="success-dialog-action"><button class="start" id="recentResultView" type="button">查看</button></div>
+</dialog>
+<footer><span>非麦当劳官方产品</span></footer>
+</body></html>

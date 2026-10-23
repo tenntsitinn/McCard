@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.log
+.test-tmp/
+data/
+*.sqlite3
+*.sqlite3-*
+.env
+node_modules/
+.remotion/
