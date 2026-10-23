@@ -12,6 +12,15 @@ ENDPOINT = "https://mcp.mcd.cn"
 READ_TOOLS = {"query-meals", "query-meal-detail", "query-nearby-stores", "now-time-info", "order-list"}
 
 
+def validate_token(token):
+    if not isinstance(token, str):
+        raise ValueError("MCP Token 格式不正确，请从官方页面重新复制。")
+    token = token.strip()
+    if not token or len(token) > 8192 or any(not 33 <= ord(char) <= 126 for char in token):
+        raise ValueError("MCP Token 格式不正确，请只粘贴官方页面复制的 Token，不要包含中文、空格或引号。")
+    return token
+
+
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         return None
@@ -26,12 +35,12 @@ def token_from_local():
                 token = value.strip().strip("\"'")
     if not token:
         raise ValueError("请在环境变量或项目 .env 中设置 MCD_TOKEN。")
-    return token
+    return validate_token(token)
 
 
 class Client:
     def __init__(self, token, allowed_tools=None):
-        self.token = token
+        self.token = validate_token(token)
         self.allowed_tools = frozenset(READ_TOOLS if allowed_tools is None else allowed_tools)
         self.session = None
         self.number = 0

@@ -28,6 +28,11 @@ class HistoryCredentialsTests(unittest.TestCase):
         with self.assertRaises(HTTPError):self.post(self.a,'/api/mcp-session',{'token':' '})
         with patch.dict('os.environ',{'MCD_TOKEN':'owner-secret'}):
             with self.assertRaises(ValueError):live_client()
+    def test_non_ascii_token_is_rejected_before_session_creation(self):
+        with self.assertRaises(HTTPError) as caught:
+            self.post(self.a,'/api/mcp-session',{'token':'MCP Token：请粘贴到这里'})
+        self.assertIn('格式不正确',caught.exception.read().decode())
+        self.assertFalse(json.load(self.a.open(self.base+'/api/mcp-session'))['connected'])
     def test_sessions_isolated_disconnect_and_no_persistence(self):
         self.post(self.a,'/api/mcp-session',{'token':'user-a'})
         with self.assertRaises(HTTPError):self.post(self.b,'/api/quick-start',{})

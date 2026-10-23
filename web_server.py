@@ -12,7 +12,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from availability import Availability, business_data, default_item, validate_item, check_item
-from mcp_probe import Client, READ_TOOLS
+from mcp_probe import Client, READ_TOOLS, validate_token
 from presets import CARD_FACES, PresetStore, DEFAULT_DB, MAX_PRESETS
 from card_workflow import CATALOG_CONTEXT, history_candidates, import_unique
 
@@ -360,9 +360,7 @@ def make_server(port=8765, db=DEFAULT_DB, factory=live_client):
                             sessions.pop(self.session_id(), None)
                         self.session_cookie = 'mcd_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0'
                         return self.respond(200, {'connected': False})
-                    if not isinstance(token, str) or not token.strip() or len(token) > 8192 or any(ord(c) < 32 or ord(c) == 127 for c in token):
-                        raise ValueError('请填写有效的个人 MCP Token。')
-                    token = token.strip()
+                    token = validate_token(token)
                     sid = secrets.token_urlsafe(32)
                     with session_lock:
                         sessions.pop(self.session_id(), None)
