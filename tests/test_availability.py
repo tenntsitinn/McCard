@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from availability import Availability, check_item, default_item
+from availability import Availability, business_data, check_item, default_item
 from presets import PresetStore
 
 
@@ -53,6 +53,14 @@ class FakeClient:
 
 
 class AvailabilityTests(unittest.TestCase):
+    def test_sold_out_business_error_has_actionable_message(self):
+        with self.assertRaisesRegex(ValueError, '切换餐厅'):
+            business_data({'structuredContent': {
+                'success': False,
+                'code': 60006,
+                'message': '商品已售罄或不可售，换一个商品或检查orderType/beType',
+            }})
+
     def preset(self):
         return {"id": 1, "name": "午餐", "tag": "常吃", "items": [default_item(detail())]}
 

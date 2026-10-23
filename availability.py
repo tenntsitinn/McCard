@@ -72,6 +72,8 @@ def business_data(response):
     if response.get("isError") or not isinstance(body, dict):
         raise ValueError("接口未返回可确认的结构化数据")
     if body.get("success") is not True or "data" not in body:
+        if body.get("code") == 60006:
+            raise ValueError("部分餐品在当前门店已售罄或不可售，请编辑卡牌或切换餐厅后重试。")
         raise ValueError("接口业务查询失败")
     return body["data"]
 
