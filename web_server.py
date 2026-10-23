@@ -28,7 +28,7 @@ REQUEST_TOKEN = ContextVar('mcp_user_token', default='')
 def live_client():
     token = REQUEST_TOKEN.get()
     if not token:
-        raise ValueError('请先接入自己的 MCP API Key。')
+        raise ValueError('请先接入自己的 MCP Token。')
     client = Client(token, allowed_tools=WEB_TOOLS)
     client.initialize()
     return client
@@ -361,7 +361,7 @@ def make_server(port=8765, db=DEFAULT_DB, factory=live_client):
                         self.session_cookie = 'mcd_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0'
                         return self.respond(200, {'connected': False})
                     if not isinstance(token, str) or not token.strip() or len(token) > 8192 or any(ord(c) < 32 or ord(c) == 127 for c in token):
-                        raise ValueError('请填写有效的个人 MCP API Key。')
+                        raise ValueError('请填写有效的个人 MCP Token。')
                     token = token.strip()
                     sid = secrets.token_urlsafe(32)
                     with session_lock:
@@ -372,7 +372,7 @@ def make_server(port=8765, db=DEFAULT_DB, factory=live_client):
                 user_token = self.user_token()
                 local_routes = {'/api/cards-save', '/api/delete', '/api/save'}
                 if factory is live_client and route not in local_routes and not user_token:
-                    return self.respond(401, {'error': '请先接入自己的 MCP API Key。'})
+                    return self.respond(401, {'error': '请先接入自己的 MCP Token。'})
                 context = REQUEST_TOKEN.set(user_token)
                 try:
                     result = app.api(route, body)

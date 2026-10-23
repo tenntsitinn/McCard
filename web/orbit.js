@@ -100,7 +100,7 @@ startButton.addEventListener('click', async () => {
     await window.mcpCredentials.ensure();
     startDialog.showModal();
   } catch (error) {
-    if (error.message !== '请先接入自己的 MCP API Key。') {
+    if (error.message !== '请先接入自己的 MCP Token。') {
       $('status').textContent = `无法开始：${error.message}`;
     }
   } finally {
